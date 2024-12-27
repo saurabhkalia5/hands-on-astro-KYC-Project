@@ -1,0 +1,2 @@
+# kyc-flow-assignment
+ This project is a multi-step KYC (Know Your Customer) completion flow designed to collect, validate, and review user information for identity verification purposes. It consists of a series of screens that guide the user through the process, ensuring that all necessary details and documents are provided and verified before submission. The application is user-friendly, with clear navigation and validation to ensure compliance and accuracy.

@@ -6,7 +6,7 @@ import { z } from "zod";
 import { getCollection } from "astro:content";
 
 // Fetch user fields from the Astro collection
-const userCollection = await getCollection("user"); // Assuming this fetches the user data collection
+const userCollection = await getCollection("user"); // this fetches the user data collection
 const currentUser = userCollection[0]; // Get the first user in the collection
 
 const schema = z.object({
@@ -33,25 +33,26 @@ const schema = z.object({
 export const POST: APIRoute = async ({ request, redirect }) => {
   // Directly use data from the Astro collection (currentUser)
   const rawData = {
-    type: currentUser.data.type, // Assuming type is stored in currentUser.data
-    pan_card_number: currentUser.data.pan_card_number, // Assuming pan_card_number is stored in currentUser.data
-    name: currentUser.data.name, // Assuming name is stored in currentUser.data
-    gender: currentUser.data.gender, // Assuming gender is stored in currentUser.data
-    date_of_birth: currentUser.data.date_of_birth, // Assuming date_of_birth is stored in currentUser.data
-    address: currentUser.data.address, // Assuming address is stored in currentUser.data
-    pincode: currentUser.data.pincode, // Assuming pincode is stored in currentUser.data
-    email: currentUser.data.email, // Assuming email is stored in currentUser.data
-    marital_status: currentUser.data.marital_status, // Assuming marital_status is stored in currentUser.data
-    annual_income: currentUser.data.annual_income, // Assuming annual_income is stored in currentUser.data
-    father_name: currentUser.data.father_name, // Assuming father_name is stored in currentUser.data
-    mother_name: currentUser.data.mother_name, // Assuming mother_name is stored in currentUser.data
+    type: currentUser.data.type, 
+    pan_card_number: currentUser.data.pan_card_number, 
+    name: currentUser.data.name, 
+    gender: currentUser.data.gender,
+    date_of_birth: currentUser.data.date_of_birth,
+    address: currentUser.data.address,
+    pincode: currentUser.data.pincode,
+    email: currentUser.data.email,
+    marital_status: currentUser.data.marital_status,
+    annual_income: currentUser.data.annual_income,
+    father_name: currentUser.data.father_name,
+    mother_name: currentUser.data.mother_name,
     documents: {
-      photo: currentUser.data.documents?.photo, // Assuming document photo is available in currentUser.data
-      pan_card: currentUser.data.documents?.pan_card, // Assuming document pan_card is available in currentUser.data
-      signature: currentUser.data.documents?.signature, // Assuming document signature is available in currentUser.data
+      photo: currentUser.data.documents?.photo,
+      pan_card: currentUser.data.documents?.pan_card,
+      signature: currentUser.data.documents?.signature,
     },
-    terms_agreed: currentUser.data.terms_agreed, // Assuming terms_agreed is available in currentUser.data
+    terms_agreed: currentUser.data.terms_agreed,
   };
+  
 
   try {
     // Validate the data
@@ -85,7 +86,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       ...data,
       // documents,
     });
-
     return redirect("/");
   } catch (error) {
     // Handle errors (validation or upload issues)

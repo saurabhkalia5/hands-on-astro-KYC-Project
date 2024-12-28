@@ -1,6 +1,8 @@
 ---
 import Header from "../components/Navbar.astro";
 import KYCFlowLayout from "./KycFlowLayout.astro";
+
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,15 +23,14 @@ import KYCFlowLayout from "./KycFlowLayout.astro";
     <div class="kyc-flow-layout">
       <div class="current-route-info">
         <div class="current-route-name">
-       Homepage
+          {title}
         </div>
         <div class="current-route-desc">
-            <h4>
-                These details are required to complete your KYC verification.
-            </h4>
+          <h4>
+            {description}
+          </h4>
         </div>
-       
-    </div>
+      </div>
       <div class="child-component">
         <slot />
       </div>

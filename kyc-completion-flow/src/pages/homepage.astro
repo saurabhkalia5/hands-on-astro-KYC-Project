@@ -1,6 +1,15 @@
+
+
+<script>
+  import { resetUserStore } from "../userStore";
+
+  document.getElementById("start-btn")?.addEventListener("click", () => {
+    resetUserStore();
+  });
+</script>
 <div class="homepage-component">
   <a href="/personalDetails"
-    ><button class="kyc-start-button"> Complete KYC </button></a
+    ><button id="start-btn" class="kyc-start-button"> Complete KYC </button></a
   >
 </div>
 

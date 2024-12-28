@@ -1,0 +1,70 @@
+---
+import Header from "../components/Navbar.astro";
+import KYCFlowLayout from "./KycFlowLayout.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/images/zfunds-logo-white.png"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>KYC | Z Funds</title>
+  </head>
+  <body>
+    <Header />
+    <div class="kyc-flow-layout">
+      <div class="current-route-info">
+        <div class="current-route-name">
+       Homepage
+        </div>
+        <div class="current-route-desc">
+            <h4>
+                These details are required to complete your KYC verification.
+            </h4>
+        </div>
+       
+    </div>
+      <div class="child-component">
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .kyc-flow-layout {
+    height: 93vh;
+    background-color: white;
+    padding: 2%;
+  }
+
+  .current-route-info {
+    margin-top: 10px;
+  }
+  .current-route-name {
+    font-size: 1.3rem;
+    border-bottom: 2px solid #03a87c;
+    width: 2vw;
+    font-weight: 600;
+    color: #052f5f;
+    text-underline-position: from-font;
+    margin-bottom: 15px;
+  }
+
+  .child-component {
+    height: 85vh;
+  }
+</style>

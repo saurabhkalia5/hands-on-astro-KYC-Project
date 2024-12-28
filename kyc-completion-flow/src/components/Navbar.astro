@@ -1,23 +1,86 @@
-<header>
-    <a>
-        Back
+---
+import { Icon } from "astro-icon/components";
+import brandlogo from "../assets/zfunds-logo.svg";
+import { Image } from "astro:assets";
+---
+
+<header class="header-tab">
+  <!-- Back Button -->
+  <div class="back-button">
+    <a href="#">
+      <Icon name="back-btn" class="icon" />
+      <h1>Back</h1>
     </a>
-    <a>
-        Image here
+  </div>
+
+  <!-- Brand Logo -->
+  <div class="brand-logo">
+    <a href="https://zfunds.in/">
+      <Image src={brandlogo} alt={"Z Funds Brand Logo"} />
     </a>
-    <a>
-        <a>
-            search
-        </a>
-        <a>
-            cart
-        </a>
+  </div>
+
+  <!-- Search and Cart -->
+  <div class="search-shop-bar">
+    <a href="#">
+      <Icon name="search-btn" class="icon" />
     </a>
+    <a href="#">
+      <Icon name="shopping-cart-one" class="icon" />
+    </a>
+  </div>
 </header>
+<div class="header-partition"></div>
 
 <style>
-    header {
-        display: flex;
-        justify-content: space-between;
-    }
+  .header-tab {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    height: 6vh;
+    padding: 2%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-partition{
+    height: 0.8vh;
+    background-color: rgb(237, 233, 233);
+  }
+
+  .brand-logo img {
+    width: 100%;
+    height: 6em;
+    max-width: 115px;
+  }
+
+  .icon {
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  .back-button a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .back-button h1 {
+    color: #052f5f;
+    font-size: 1em;
+    text-decoration: none;
+  }
+
+  .search-shop-bar a {
+    display: inline-block;
+  }
+
+  .search-shop-bar a:first-child {
+    margin-right: 5px;
+  }
+  .search-shop-bar .icon{
+    height: 1.5em;
+    width: 1.5em;
+  }
 </style>

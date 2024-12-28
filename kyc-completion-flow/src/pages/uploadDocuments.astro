@@ -1,0 +1,125 @@
+---
+import KycFlowLayout from "../layouts/KycFlowLayout.astro"
+---
+
+<KycFlowLayout>
+<section class="upload-container">
+    <!-- PAN Card Section -->
+    <div class="upload-section">
+      <h3>PAN Card</h3>
+      <p>Click a picture of your PAN Card and upload</p>
+      <div class="upload-box">
+        <input type="file" accept="image/*" id="pan-upload" class="hidden" />
+        <label for="pan-upload" class="upload-label">
+          <span>Upload PAN Card</span>
+        </label>
+      </div>
+    </div>
+  
+    <!-- Signature Section -->
+    <div class="upload-section">
+      <h3>Signature</h3>
+      <p>Sign on a blank white paper (same as in Bank records). Click a picture & upload.</p>
+      <div class="upload-box">
+        <input type="file" accept="image/*" id="signature-upload" class="hidden" />
+        <label for="signature-upload" class="upload-label">
+          <span>Upload Signature</span>
+        </label>
+      </div>
+    </div>
+    <div class="submit-buttons">
+      <a href="/fatcaDeclaration"><button class="next-button">Next</button></a>
+      <a href="/fatcaDeclaration"></a><button class="skip-button">Skip for Now</button></a>
+    </div>
+  </section>
+</KycFlowLayout>
+
+  <style>
+    .upload-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  
+    .upload-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    h3 {
+      font-size: 18px;
+      margin: 0;
+      color: #1d3557;
+    }
+  
+    p {
+      font-size: 14px;
+      color: #555;
+      margin: 0;
+    }
+  
+    .upload-box {
+      border: 2px dashed #ccc;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+      position: relative;
+    }
+  
+    .upload-box:hover {
+      border-color: #0056b3;
+    }
+  
+    .hidden {
+      display: none;
+    }
+  
+    .upload-label {
+      position: absolute;
+      font-size: 14px;
+      color: #007bff;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+    .upload-label:hover {
+      text-decoration: underline;
+    }
+
+    .submit-buttons {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .next-button {
+        background: #003366;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .skip-button {
+        background: none;
+        border: none;
+        color: #666;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    
+  </style>
+  

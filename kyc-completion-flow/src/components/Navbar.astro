@@ -2,15 +2,28 @@
 import { Icon } from "astro-icon/components";
 import brandlogo from "../assets/zfunds-logo.svg";
 import { Image } from "astro:assets";
+
+const isRoot = Astro.request.url.endsWith("/");
 ---
+
+<script>
+  document.getElementById("back-btn")?.addEventListener("click", (event) => {
+    event.preventDefault(); // Prevents default anchor behavior
+    window.history.back(); // Goes back one page in history
+  });
+</script>
 
 <header class="header-tab">
   <!-- Back Button -->
   <div class="back-button">
-    <a href="#">
-      <Icon name="back-btn" class="icon" />
-      <h1>Back</h1>
-    </a>
+    {
+      !isRoot && (
+        <a href="#" id="back-btn">
+          <Icon name="back-btn" class="icon" />
+          <h1>Back</h1>
+        </a>
+      )
+    }
   </div>
 
   <!-- Brand Logo -->
@@ -22,10 +35,10 @@ import { Image } from "astro:assets";
 
   <!-- Search and Cart -->
   <div class="search-shop-bar">
-    <a href="#">
+    <a href="https://zfunds.in/advisor">
       <Icon name="search-btn" class="icon" />
     </a>
-    <a href="#">
+    <a href="https://zfunds.in/homedetail">
       <Icon name="shopping-cart-one" class="icon" />
     </a>
   </div>
@@ -43,7 +56,7 @@ import { Image } from "astro:assets";
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  .header-partition{
+  .header-partition {
     height: 0.8vh;
     background-color: rgb(237, 233, 233);
   }
@@ -59,7 +72,7 @@ import { Image } from "astro:assets";
     width: 1.2em;
   }
 
-  .back-button a{
+  .back-button a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,7 +92,7 @@ import { Image } from "astro:assets";
   .search-shop-bar a:first-child {
     margin-right: 5px;
   }
-  .search-shop-bar .icon{
+  .search-shop-bar .icon {
     height: 1.5em;
     width: 1.5em;
   }

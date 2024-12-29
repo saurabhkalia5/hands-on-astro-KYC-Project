@@ -1,0 +1,14 @@
+.heading-tile-container {
+    width: 100vw; 
+    max-width: 480px;
+    box-sizing: border-box;
+    height: 7vh;
+    /* max-height: 10px; */
+    background-color: #EFF3F6;
+    padding: 4% 2%;
+    box-sizing: border-box;
+    font-weight: 600;
+    font-size: calc(0.5vw + 1em);
+    position: relative; /* Maintains natural flow */
+    left: calc(-50vw + 50%); /* Center-align with viewport */
+}

@@ -1,94 +1,163 @@
 .card {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  background: white;
+  border: 1px solid #8e959f;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+.non-editable{
+  padding: 0px !important;
+}
 
-  .card-header .edit {
-    font-size: 14px;
-    color: #007bff;
-    cursor: pointer;
-  }
+.content-box{
+  padding: 15px;
+}
 
-  .card-content p {
-    margin: 5px 0;
-    font-size: 14px;
-    line-height: 1.5;
-  }
 
-  .note {
-    font-size: 12px;
-    color: #888;
-    margin-top: 10px;
-    background: #f1f1f1;
-    padding: 10px;
-    border-radius: 4px;
-  }
+.form-details{
+  margin-top: 30px;
+}
 
-  .documents {
-    display: flex;
-    gap: 10px;
-  }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-  .document-placeholder {
-    flex: 1;
-    height: 80px;
-    border: 2px dashed #d0d0d0;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: #888;
-  }
+.card-header {
+  font-size: 16px;
+  cursor: pointer;
+}
 
-  .terms {
-    margin: 15px 0;
-    font-size: 14px;
-  }
+.edit a{
+  color: #03A87D;
+  text-decoration: none;
+  font-weight: 500;
+}
 
-  .terms a {
-    color: #007bff;
-    text-decoration: none;
-  }
+.card-content{
+  flex: 1;
+}
 
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.card-content p {
+  margin: 5px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
-  .next-btn {
-    background-color: #004680;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
+.card-content p {
+  flex-grow: 1;
+}
 
-  .skip-btn {
-    font-size: 14px;
-    color: #555;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-  }
+.card-content .key {
+  font-size: 12px;
+  color: #8E959F;
+}
 
-  a{
-    text-decoration: none;
-  }
+.card-content .value {
+  font-size: 15px; 
+  margin-top: 2px;
+}
+.note {
+  font-size: 12px;
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+
+.documents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px; /* Adds spacing between the images */
+}
+
+.document-placeholder {
+  width: 100%;
+  max-width: 300px; /* Set a max width for each document container */
+  overflow: hidden; /* Ensures no image overflows outside the container */
+  position: relative;
+  color: #888;
+  border: 2px dashed #d0d0d0;
+  flex: 1;
+  height: 80px;
+  border-radius: 8px;
+  display: flex; /* Enable flexbox on the container */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.document-image {
+  width: 80%; /* Image width */
+  height: 80%; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensures image scales correctly without distortion */
+}
+
+
+.terms {
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.terms input[type="checkbox"]:checked {
+  background-color: #004680; /* Background color when checked */
+  border-color: #004680; /* Border color when checked */
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.next-btn {
+  background-color: #004680;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.skip-btn {
+  font-size: 14px;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+a {
+  text-decoration: none;
+}
+
+.submit-btn {
+  background: #003366;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 90vw;
+  height: 54px;
+  transition: background 0.3s ease;
+}
+
+.submit-btn.inactive {
+  background: #a3c4e5; /* Lighter blue when inactive */
+  cursor: not-allowed; /* Indicate that the button is not clickable */
+}

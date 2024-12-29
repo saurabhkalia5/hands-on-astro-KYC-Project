@@ -3,6 +3,8 @@ import './PersonalDetails.styles.css';
 import { useStore } from '@nanostores/react'; 
 import {  resetUserStore, updateUser, userStore } from '../../../userStore';
 import type { UserType } from '../../../types';
+import HeadingTile from '../../HeadingTile/headingTile.component';
+import SubmitButton from '../../submitButtons/submitButtons';
 
 export default function PersonalDetailsForm() {
   const currentUser = useStore(userStore)
@@ -49,6 +51,7 @@ export default function PersonalDetailsForm() {
 
   return (
     <div className="personal-details-form">
+      <HeadingTile title='Personal Details'/>
       <div className="form-container">
         <h2>Marital Status</h2>
         <div className="field">
@@ -76,7 +79,7 @@ export default function PersonalDetailsForm() {
           </div>
         </div>
         <div className="field">
-          <label>Father’s Name</label>
+          <h2>Father’s Name</h2>
           <input 
             type="text" 
             id="fathersName" 
@@ -87,7 +90,7 @@ export default function PersonalDetailsForm() {
           />
         </div>
         <div className="field">
-          <label>Mother’s Name</label>
+          <h2>Mother’s Name</h2>
           <input 
             type="text" 
             id="mothersName" 
@@ -98,24 +101,25 @@ export default function PersonalDetailsForm() {
           />
         </div>
         <div className="field">
-          <label>Email</label>
+          <h2>Email</h2>
           <input 
             type="text" 
             id="email" 
-            className="text-input" 
+            className="text-input email" 
             value={email} 
             onChange={(e) => handleValueChange('email', e.target.value)} 
             placeholder="@gmail.com" 
           />
+           <div style={{color: "gray", fontSize: "0.9rem", marginTop:"10px", marginBottom:"20px"}}>
+            You will receive portfolio statements on this email id
+          </div>
           <div className="email-domains">
             <button className="active" onClick={() => handleEmailDomainClick('gmail.com')}>@gmail.com</button>
             <button onClick={() => handleEmailDomainClick('yahoo.com')}>@yahoo.com</button>
             <button onClick={() => handleEmailDomainClick('yahoo.co.in')}>@yahoo.co.in</button>
             <button onClick={() => handleEmailDomainClick('rediffmail.com')}>@rediffmail.com</button>
           </div>
-          <small style={{color: "gray", fontSize: "0.9rem"}}>
-            You will receive portfolio statements on this email id
-          </small>
+         
         </div>
         <h2>Annual Income</h2>
         <div className="income-options">
@@ -160,14 +164,7 @@ export default function PersonalDetailsForm() {
             Above 25 Lakhs
           </label>
         </div>
-        <div className="submit-buttons">
-          <a href="/uploadDocuments">
-            <button className="next-button">Next</button>
-          </a>
-          <a href="/uploadDocuments">
-            <button className="skip-button">Skip for Now</button>
-          </a>
-        </div>
+        <SubmitButton nextRoute='/uploadDocuments'/>
       </div>
     </div>
   );

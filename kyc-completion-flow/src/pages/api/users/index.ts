@@ -31,11 +31,10 @@ const schema = z.object({
 });
 
 export const POST: APIRoute = async ({ request, redirect }) => {
-  // Directly use data from the Astro collection (currentUser)
   const rawData = {
-    type: currentUser.data.type, 
-    pan_card_number: currentUser.data.pan_card_number, 
-    name: currentUser.data.name, 
+    type: currentUser.data.type,
+    pan_card_number: currentUser.data.pan_card_number,
+    name: currentUser.data.name,
     gender: currentUser.data.gender,
     date_of_birth: currentUser.data.date_of_birth,
     address: currentUser.data.address,
@@ -52,34 +51,11 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     },
     terms_agreed: currentUser.data.terms_agreed,
   };
-  
 
   try {
-    // Validate the data
     const data = schema.parse(rawData);
-
     const db = getFirestore(app);
     const storage = getStorage(app);
-
-    // const uploadFile = async (filePath: string, path: string): Promise<string> => {
-    //   const bucketName = `${import.meta.env.FIREBASE_PROJECT_ID}.firebasestorage.app`;
-    //   const bucket = storage.bucket(bucketName);
-      
-    //   const fileRef = bucket.file(path);
-    
-    //   // Assuming filePath is a buffer or a string representing the file content.
-    //   await fileRef.save(Buffer.from(filePath), {
-    //     contentType: "application/octet-stream", // Assuming file is being passed as a buffer
-    //   });
-    
-    //   return fileRef.publicUrl();
-    // };
-    // // Assuming documents are already in a suitable location in currentUser, handle file uploads
-    // const documents = {
-    //   photo: await uploadFile(currentUser.data.documents?.photo, `documents/photos/${data.pan_card_number}`),
-    //   pan_card: await uploadFile(currentUser.data.documents?.pan_card, `documents/pan_cards/${data.pan_card_number}`),
-    //   signature: await uploadFile(currentUser.data.documents?.signature, `documents/signatures/${data.pan_card_number}`),
-    // };
 
     // Save the user data to Firestore
     await db.collection("users").add({
@@ -88,15 +64,23 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     });
     return redirect("/");
   } catch (error) {
-    // Handle errors (validation or upload issues)
     console.error("Error:", error);
     if (error instanceof z.ZodError) {
-      return new Response(JSON.stringify({ errors: error.errors }), {
-        status: 400,
-      });
+      // Return error details for validation failure
+      return new Response(
+        JSON.stringify({ success: false, errors: error.errors }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
-    return new Response("Something went wrong", {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ success: false, message: "Something went wrong" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 };

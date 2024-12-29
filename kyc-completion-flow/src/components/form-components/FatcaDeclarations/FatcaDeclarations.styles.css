@@ -1,25 +1,32 @@
 .container {
     max-width: 400px;
-    margin: auto;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    /* margin: auto; */
+    padding: 20px 0px;
     font-family: Arial, sans-serif;
   }
 
   .header {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
   }
 
   .form-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
+  .form-row:nth-child(4) {
+    margin-bottom: 200px;
+  }
+  
   .form-row label {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .toggle {

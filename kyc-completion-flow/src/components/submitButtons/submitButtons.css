@@ -1,0 +1,33 @@
+.submit-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .next-button {
+    background: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 90vw;
+    height: 54px;
+  }
+  
+  .skip-button {
+    background: none;
+    border: none;
+    color: #052F5F;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+
+  .error-message{
+    color: red;
+  }

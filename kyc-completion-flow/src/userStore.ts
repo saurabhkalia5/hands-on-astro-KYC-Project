@@ -29,20 +29,20 @@ import type { UserType } from "./types";
 /** @type {import('nanostores').Atom<User>} */
 
 const initialUserState: UserType = {
-  pan_card_number: "",
-  name: "",
+  pan_card_number: "Indian Citizen",
+  name: "Tanvi Jadhav",
   age: null,
-  gender: "",
-  date_of_birth: "",
-  address: "",
-  pincode: "",
+  gender: "Male",
+  date_of_birth: "DD/MM/YYYY",
+  address: "250 Flat No, second floor, sector 57, shushant lok Phase 2",
+  pincode: "122003",
   email: "",
   marital_status: "",
   annual_income: "",
   father_name: "",
   mother_name: "",
   documents: {
-    photo: "",
+    photo: "https://cdn-icons-png.flaticon.com/512/219/219983.png",
     pan_card: "",
     signature: "",
   },

@@ -25,10 +25,9 @@ const { title, description } = Astro.props;
         <div class="current-route-name">
           {title}
         </div>
+        <div class="partition-line"></div>
         <div class="current-route-desc">
-          <h4>
-            {description}
-          </h4>
+          {description}
         </div>
       </div>
       <div class="child-component">
@@ -44,6 +43,13 @@ const { title, description } = Astro.props;
     margin: 0;
     width: 100%;
     height: 100%;
+    font-family: Noto Sans;
+    color: #052f5f;
+  }
+
+  .partition-line {
+    border-bottom: 2px solid #03a87c;
+    width: 30px;
   }
 
   .kyc-flow-layout {
@@ -57,15 +63,19 @@ const { title, description } = Astro.props;
   }
   .current-route-name {
     font-size: 1.3rem;
-    border-bottom: 2px solid #03a87c;
-    width: 2vw;
+    margin-top: 18px;
     font-weight: 550;
     color: #052f5f;
     text-underline-position: from-font;
-    margin-bottom: 15px;
+  }
+
+  .current-route-desc {
+    color: #052f5f;
+    margin: 20px 0px;
   }
 
   .child-component {
     height: 85vh;
+    
   }
 </style>

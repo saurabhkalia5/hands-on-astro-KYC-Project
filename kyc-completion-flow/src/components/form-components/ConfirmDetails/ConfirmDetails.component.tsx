@@ -36,7 +36,7 @@ const UserProfile: React.FC = () => {
       {/* User Details Section */}
       <div className="card">
         <div className="card-header">
-          User Details <span className="edit">Edit</span>
+          User Details <span className="edit"><a href="/personalDetails">Edit</a></span>
         </div>
         <div className="card-content">
           <p>PAN Card Number: {currentUser.pan_card_number}</p>
@@ -62,7 +62,7 @@ const UserProfile: React.FC = () => {
       {/* KYC Details Section */}
       <div className="card">
         <div className="card-header">
-          KYC Details <span className="edit">Edit</span>
+          KYC Details <span className="edit"><a href="/personalDetails">Edit</a></span>
         </div>
         <div className="card-content">
           <p>Email: {currentUser.email}</p>
@@ -76,7 +76,7 @@ const UserProfile: React.FC = () => {
       {/* Documents Section */}
       <div className="card">
         <div className="card-header">
-          Documents <span className="edit">Edit</span>
+          Documents <span className="edit"><a href="/uploadDocuments">Edit</a></span>
         </div>
         <div className="documents">
           <div className="document-placeholder">

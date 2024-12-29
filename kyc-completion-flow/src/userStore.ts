@@ -28,42 +28,65 @@ import type { UserType } from "./types";
 
 /** @type {import('nanostores').Atom<User>} */
 
-
-const initialUserState:UserType = {
-  pan_card_number: '',
-  name: '',
+const initialUserState: UserType = {
+  pan_card_number: "",
+  name: "",
   age: null,
-  gender: '',
-  date_of_birth: '',
-  address: '',
-  pincode: '',
-  email: '',
-  marital_status: '',
-  annual_income: '',
-  father_name: '',
-  mother_name: '',
+  gender: "",
+  date_of_birth: "",
+  address: "",
+  pincode: "",
+  email: "",
+  marital_status: "",
+  annual_income: "",
+  father_name: "",
+  mother_name: "",
   documents: {
-    photo: '',
-    pan_card: '',
-    signature: '',
-  }
+    photo: "",
+    pan_card: "",
+    signature: "",
+  },
 };
 
-export const userStore = persistentAtom<UserType>('userStore', initialUserState, {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-})
+export const userStore = persistentAtom<UserType>(
+  "userStore",
+  initialUserState,
+  {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+  }
+);
 
-
-
+userStore.subscribe((value) => {
+  console.log("updaated value", value);
+});
 
 export function updateUser(key: string, value: string) {
   const currentUser = userStore.get(); // Directly retrieve the object
+  let updatedUser;
 
-  const updatedUser = {
-    ...currentUser, // Spread the current values
-    [key]: value,   // Update the specific key
-  };
+  if (key === "documents.pan_card") {
+    updatedUser = {
+      ...currentUser,
+      documents: {
+        ...currentUser.documents, // Copy existing document properties
+        pan_card: value, // Update the `pan_card` property
+      },
+    };
+  } else if (key === "documents.signature") {
+    updatedUser = {
+      ...currentUser,
+      documents: {
+        ...currentUser.documents, // Copy existing document properties
+        signature: value, // Update the `pan_card` property
+      },
+    };
+  } else {
+    updatedUser = {
+      ...currentUser, // Spread the current values
+      [key]: value, // Update the specific key
+    };
+  }
 
   // Save the updated object back to the persistent store
   userStore.set(updatedUser);
@@ -71,5 +94,5 @@ export function updateUser(key: string, value: string) {
 
 // Function to reset the user store to the initial state
 export function resetUserStore() {
-  userStore.set(initialUserState)
-  }
+  userStore.set(initialUserState);
+}

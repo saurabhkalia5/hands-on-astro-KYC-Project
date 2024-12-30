@@ -8,11 +8,14 @@ import node from '@astrojs/node';
 import icon from 'astro-icon';
 
 
+import netlify from '@astrojs/netlify';
+
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), icon()],
   output: 'server',
-  adapter: node({
-    mode: 'standalone',
+  adapter: netlify({
+    edgeMiddleware: true
   }),
 });

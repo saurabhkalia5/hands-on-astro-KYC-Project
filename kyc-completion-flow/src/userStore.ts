@@ -42,9 +42,9 @@ const initialUserState: UserType = {
   father_name: "",
   mother_name: "",
   documents: {
-    photo: "https://cdn-icons-png.flaticon.com/512/219/219983.png",
-    pan_card: "",
-    signature: "",
+    photo: "https://static.vecteezy.com/system/resources/previews/007/296/447/non_2x/user-icon-in-flat-style-person-icon-client-symbol-vector.jpg",
+    pan_card: "https://i.etsystatic.com/36262552/r/il/e99d3d/4200185857/il_570xN.4200185857_4q6q.jpg",
+    signature: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa8dfNitSE3DimQsl9LmGzBvSORvE0Cj17Vg&s",
   },
 };
 

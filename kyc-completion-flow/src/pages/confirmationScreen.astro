@@ -1,0 +1,25 @@
+---
+import KycFlowLayout from "../layouts/KycFlowLayout.astro";
+---
+
+<KycFlowLayout>
+    <div class="message-container">
+        <div class="message">
+            KYC Submitted Successfully
+        </div>
+    </div>
+</KycFlowLayout>
+
+<script>
+    setTimeout(() => {
+        window.location.href = "/";
+    }, 3000);
+</script>
+
+<style>
+    .message-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>

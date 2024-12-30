@@ -4,14 +4,25 @@ import "./UploadDocuments.styles.css";
 import { updateUser, userStore } from "../../../userStore";
 import SubmitButton from "../../submitButtons/submitButtons";
 import HeadingTile from "../../HeadingTile/headingTile.component";
-import AddIcon from '../../../assets/add:remove.png'
-
+import AddIcon from "../../../assets/add:remove.png";
 
 const UploadDocumentsForm: React.FC = () => {
+  const currentUser = useStore(userStore);
+
   const [panCard, setPanCard] = useState<File | null>(null);
   const [signature, setSignature] = useState<File | null>(null);
-  const [panCardPreview, setPanCardPreview] = useState<string | null>(null);
-  const [signaturePreview, setSignaturePreview] = useState<string | null>(null);
+  const [panCardPreview, setPanCardPreview] = useState<string | null>(
+    currentUser.documents.pan_card === "https://i.etsystatic.com/36262552/r/il/e99d3d/4200185857/il_570xN.4200185857_4q6q.jpg"
+      ? null
+      : currentUser.documents.pan_card
+  );
+  
+  const [signaturePreview, setSignaturePreview] = useState<string | null>(
+    currentUser.documents.signature === "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa8dfNitSE3DimQsl9LmGzBvSORvE0Cj17Vg&s"
+      ? null
+      : currentUser.documents.signature
+  );
+  
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,6 +30,24 @@ const UploadDocumentsForm: React.FC = () => {
       setError(null);
     }, 5000);
   }, [error]);
+
+  const removeImage = (type: string) => {
+    if (type === "panCard") {
+      setPanCard(null);
+      setPanCardPreview(null);
+      updateUser(
+        "documents.pan_card",
+        "https://i.etsystatic.com/36262552/r/il/e99d3d/4200185857/il_570xN.4200185857_4q6q.jpg"
+      ); // Update Nanostore
+    } else if (type === "signature") {
+      setSignature(null);
+      setSignaturePreview(null);
+      updateUser(
+        "documents.signature",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa8dfNitSE3DimQsl9LmGzBvSORvE0Cj17Vg&s"
+      ); // Update Nanostore
+    }
+  };
 
   const convertFileToBase64 = (file: File) =>
     new Promise<string>((resolve, reject) => {
@@ -81,11 +110,21 @@ const UploadDocumentsForm: React.FC = () => {
               />
               <label htmlFor="pan-upload" className="upload-label">
                 {panCardPreview ? (
-                  <img
-                    src={panCardPreview}
-                    alt="PAN Card Preview"
-                    className="preview-image"
-                  />
+                  <div className="image-container">
+                    <img
+                      src={panCardPreview}
+                      alt="PAN Card Preview"
+                      className="preview-image"
+                    />
+                    <button
+                      type="button"
+                      className="remove-image-btn"
+                      onClick={() => removeImage("panCard")}
+                      aria-label="Remove image"
+                    >
+                      &times;
+                    </button>
+                  </div>
                 ) : (
                   <span>Upload PAN Card</span>
                 )}
@@ -111,18 +150,28 @@ const UploadDocumentsForm: React.FC = () => {
               />
               <label htmlFor="signature-upload" className="upload-label">
                 {signaturePreview ? (
-                  <img
-                    src={signaturePreview}
-                    alt="Signature Preview"
-                    className="preview-image"
-                    
-                  />
+                  <div className="image-container">
+                    <img
+                      src={signaturePreview}
+                      alt="Signature Preview"
+                      className="preview-image"
+                    />
+                    <button
+                      type="button"
+                      className="remove-image-btn"
+                      onClick={() => removeImage("signature")}
+                      aria-label="Remove image"
+                    >
+                      &times;
+                    </button>
+                  </div>
                 ) : (
                   <span>Upload Signature</span>
                 )}
               </label>
             </div>
           </div>
+
           {error && <div className="error-message">{error}</div>}
         </section>
       </div>

@@ -5,10 +5,16 @@
     height: 7vh;
     /* max-height: 10px; */
     background-color: #EFF3F6;
-    padding: 4% 2%;
+    padding: 3% 2%;
     box-sizing: border-box;
-    font-weight: 600;
-    font-size: calc(0.5vw + 1em);
+    font-weight: 500;
+    font-size: calc(0.2vw + 1em);
     position: relative; /* Maintains natural flow */
-    left: calc(-50vw + 50%); /* Center-align with viewport */
+}
+
+@media(max-width:480px){
+    .heading-tile-container{
+        left: calc(-50vw + 50%);
+        padding: 4% 2%;
+    }
 }

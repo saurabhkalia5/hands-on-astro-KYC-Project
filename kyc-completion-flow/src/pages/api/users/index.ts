@@ -62,7 +62,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       ...data,
       // documents,
     });
-    return redirect("/");
+    return redirect("/confirmationScreen");
   } catch (error) {
     console.error("Error:", error);
     if (error instanceof z.ZodError) {

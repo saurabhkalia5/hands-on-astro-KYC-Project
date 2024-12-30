@@ -7,17 +7,143 @@ import KycFlowLayout from "../layouts/KycFlowLayout.astro";
   title="KYC Details"
   description="Read below details carefully, they cannot be changed later."
 >
-  <form method="post" action="/api/users" class="container">
+  <form method="post" action="/api/users" class="container" id="kyc-form">
     <UserProfile client:load />
+    <div class="terms">
+      <label>
+        <input
+        style={{accentColor:"#03A87D"}}
+          type="checkbox"
+          id="terms-checkbox"
+          aria-label="Agree to terms and conditions"
+          checked
+        />
+        I agree to the <a href="https://zfunds.in/privacy-policy" target="_blank" style={{textDecoration:"none",}}>Terms & Conditions</a>
+      </label>
+    </div>
+    <div class="error-message" id="error-message" style="display: none;">
+      <p style="color: red; font-size: 14px;">
+        Please select the terms and conditions to proceed.
+      </p>
+    </div>
+    <div class="buttons">
+      <button
+        type="submit"
+        class="submit-btn inactive"
+        id="submit-btn"
+        aria-label="Proceed to the next step"
+        disabled
+      >
+        SUBMIT
+      </button>
+      <div id="loader" class="loader" style="display: none;"></div> <!-- Loader added here -->
+    </div>
   </form>
-</KycFlowLayout>
 
-<style>
-  .container {
-    height: 100%;
-    max-width: 600px;
-    margin: auto;
-    font-family: Arial, sans-serif;
-    background-color: white;
-  }
-</style>
+  <script>
+    // Type assertions for element references
+    const form = document.getElementById("kyc-form") as HTMLFormElement | null;
+    const checkbox = document.getElementById("terms-checkbox") as HTMLInputElement | null;
+    const submitButton = document.getElementById("submit-btn") as HTMLButtonElement | null;
+    const errorMessage = document.getElementById("error-message") as HTMLDivElement | null;
+    const loader = document.getElementById("loader") as HTMLDivElement | null;
+  
+    if (checkbox && submitButton && errorMessage && form && loader) {
+      // Set initial state based on checkbox status
+      const isChecked = checkbox.checked;
+      submitButton.disabled = !isChecked;
+      submitButton.classList.toggle("inactive", !isChecked);
+      errorMessage.style.display = isChecked ? "none" : "block"; // Show/hide error
+  
+      checkbox.addEventListener("change", (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        const isChecked = target.checked;
+  
+        submitButton.disabled = !isChecked; // Enable/disable button
+        submitButton.classList.toggle("inactive", !isChecked); // Update button class
+        errorMessage.style.display = isChecked ? "none" : "block"; // Show/hide error
+      });
+  
+      form.addEventListener("submit", (event: Event) => {
+        if (!checkbox.checked) {
+          event.preventDefault(); // Prevent form submission
+          errorMessage.style.display = "block"; // Show error message
+          return;
+        }
+  
+        // Show loader and disable button on submit
+        loader.style.display = "block"; // Show the loader
+        submitButton.disabled = true; // Disable the submit button to prevent further clicks
+        submitButton.classList.add("inactive"); // Apply inactive class to the button
+      });
+    }
+  </script>
+  
+  </KycFlowLayout>
+
+
+  <style>
+    .container {
+      height: 100%;
+      max-width: 600px;
+      margin: auto;
+      font-family: Arial, sans-serif;
+      background-color: white;
+    }
+
+    .terms {
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .terms input[type="checkbox"]:checked {
+      background-color: #004680; /* Background color when checked */
+      border-color: #004680; /* Border color when checked */
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .submit-btn {
+      background: #003366;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 90vw;
+      height: 54px;
+      transition: background 0.3s ease;
+    }
+
+    .submit-btn.inactive {
+      background: #a3c4e5; /* Lighter blue when inactive */
+      cursor: not-allowed; /* Indicate that the button is not clickable */
+    }
+
+    /* Loader styles */
+    .loader {
+      border: 4px solid #f3f3f3; /* Light grey */
+      border-top: 4px solid #003366; /* Blue */
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+    }
+
+
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>

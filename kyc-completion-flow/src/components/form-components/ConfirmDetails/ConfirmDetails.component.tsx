@@ -1,24 +1,11 @@
 import { useStore } from "@nanostores/react";
-import { useState, useEffect } from "react"; // Importing useState and useEffect hooks
 import "./ConfirmDetails.styles.css";
 import { userStore } from "../../../userStore";
-import type { UserType } from "../../../types";
+import "font-awesome/css/font-awesome.min.css";
 import HeadingTile from "../../HeadingTile/headingTile.component";
 
 const UserProfile: React.FC = () => {
   const currentUser = useStore(userStore);
-
-  // State to track if the terms checkbox is checked
-  const [isTermsChecked, setIsTermsChecked] = useState(true);
-  // State to track whether the error message should be displayed
-  const [showError, setShowError] = useState(false);
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    setIsTermsChecked(isChecked);
-    setShowError(!isChecked);  // Show error message immediately when unchecked
-  };
-  
 
   return (
     <div>
@@ -29,7 +16,9 @@ const UserProfile: React.FC = () => {
           <div className="card-header">
             User Details{" "}
             <span className="edit">
-              <a href="/personalDetails">Edit</a>
+              <a href="/personalDetails">
+                <i className="fa fa-pencil fa-sm" ></i> Edit
+              </a>
             </span>
           </div>
           <div className="card-content">
@@ -74,8 +63,8 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
           <div className="note">
-            <strong>Note</strong>: You cannot edit the above details as they are already
-            verified through Digilocker.
+            <strong>Note</strong>: You cannot edit the above details as they are
+            already verified through Digilocker.
           </div>
         </div>
 
@@ -84,7 +73,7 @@ const UserProfile: React.FC = () => {
           <div className="card-header">
             KYC Details{" "}
             <span className="edit">
-              <a href="/personalDetails">Edit</a>
+              <a href="/personalDetails"><i className="fa fa-pencil fa-sm"></i> Edit</a>
             </span>
           </div>
           <div className="card-content">
@@ -121,7 +110,7 @@ const UserProfile: React.FC = () => {
           <div className="card-header">
             Documents{" "}
             <span className="edit">
-              <a href="/uploadDocuments">Edit</a>
+              <a href="/uploadDocuments"><i className="fa fa-pencil fa-sm"></i> Edit</a>
             </span>
           </div>
           <div className="documents">
@@ -148,38 +137,6 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Terms and Buttons Section */}
-        <div className="terms">
-          <label>
-            <input
-              type="checkbox"
-              checked={isTermsChecked}
-              aria-label="Agree to terms and conditions"
-              onChange={handleCheckboxChange} // Update state when checkbox is clicked
-            />
-            I agree to the <a href="#">Terms & Conditions</a>
-          </label>
-        </div>
-
-        {/* Error Message */}
-        {showError && (
-          <div className="error-message">
-            <p style={{ color: "red", fontSize: "14px" }}>
-              Please select the terms and conditions to proceed.
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="buttons">
-        <button
-          className={`submit-btn ${!isTermsChecked ? 'inactive':''}`}
-          aria-label="Proceed to the next step"
-          disabled={!isTermsChecked} // Disable button if terms are not checked
-        >
-          SUBMIT
-        </button>
       </div>
     </div>
   );

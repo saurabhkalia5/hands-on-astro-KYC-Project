@@ -49,6 +49,13 @@ export default function PersonalDetailsForm() {
     handleValueChange('email', updatedEmail);
   };
 
+  const getDomain = (email:string) => {
+    return email.split('@')[1];
+  };
+
+  const currentDomain = getDomain(email) ?? "gmail.com";
+
+
   return (
     <div className="personal-details-form">
       <HeadingTile title='Personal Details'/>
@@ -113,12 +120,34 @@ export default function PersonalDetailsForm() {
            <div style={{color: "gray", fontSize: "0.9rem", marginTop:"10px", marginBottom:"20px"}}>
             You will receive portfolio statements on this email id
           </div>
-          <div className="email-domains">
-            <button className="active" onClick={() => handleEmailDomainClick('gmail.com')}>@gmail.com</button>
-            <button onClick={() => handleEmailDomainClick('yahoo.com')}>@yahoo.com</button>
-            <button onClick={() => handleEmailDomainClick('yahoo.co.in')}>@yahoo.co.in</button>
-            <button onClick={() => handleEmailDomainClick('rediffmail.com')}>@rediffmail.com</button>
-          </div>
+          <div>
+      <div className="email-domains">
+        <button
+          className={currentDomain === 'gmail.com' ? 'active' : ''}
+          onClick={() => handleEmailDomainClick('gmail.com')}
+        >
+          @gmail.com
+        </button>
+        <button
+          className={currentDomain === 'yahoo.com' ? 'active' : ''}
+          onClick={() => handleEmailDomainClick('yahoo.com')}
+        >
+          @yahoo.com
+        </button>
+        <button
+          className={currentDomain === 'yahoo.co.in' ? 'active' : ''}
+          onClick={() => handleEmailDomainClick('yahoo.co.in')}
+        >
+          @yahoo.co.in
+        </button>
+        <button
+          className={currentDomain === 'rediffmail.com' ? 'active' : ''}
+          onClick={() => handleEmailDomainClick('rediffmail.com')}
+        >
+          @rediffmail.com
+        </button>
+      </div>
+    </div>
          
         </div>
         <h2>Annual Income</h2>
@@ -163,8 +192,8 @@ export default function PersonalDetailsForm() {
             /> 
             Above 25 Lakhs
           </label>
+          <SubmitButton nextRoute='/uploadDocuments'/>
         </div>
-        <SubmitButton nextRoute='/uploadDocuments'/>
       </div>
     </div>
   );

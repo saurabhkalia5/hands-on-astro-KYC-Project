@@ -51,9 +51,15 @@ const isRoot = Astro.request.url.endsWith("/");
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    height: 6vh;
+    height: 1vh;
     padding: 2%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width:480px){
+    .header-tab{
+      height: 6vh;
+    }
   }
 
   .header-partition {

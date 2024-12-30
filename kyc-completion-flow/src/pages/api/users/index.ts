@@ -62,7 +62,14 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       ...data,
       // documents,
     });
-    return redirect("/confirmationScreen");
+    return new Response(
+      JSON.stringify({ success: true }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    // return redirect("/confirmationScreen");
   } catch (error) {
     console.error("Error:", error);
     if (error instanceof z.ZodError) {

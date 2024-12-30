@@ -41,7 +41,6 @@ import KycFlowLayout from "../layouts/KycFlowLayout.astro";
   </form>
 
   <script>
-    // Type assertions for element references
     const form = document.getElementById("kyc-form") as HTMLFormElement | null;
     const checkbox = document.getElementById("terms-checkbox") as HTMLInputElement | null;
     const submitButton = document.getElementById("submit-btn") as HTMLButtonElement | null;
@@ -64,20 +63,49 @@ import KycFlowLayout from "../layouts/KycFlowLayout.astro";
         errorMessage.style.display = isChecked ? "none" : "block"; // Show/hide error
       });
   
-      form.addEventListener("submit", (event: Event) => {
+      form.addEventListener("submit", async (event: Event) => {
+        event.preventDefault(); // Prevent default form submission
+  
         if (!checkbox.checked) {
-          event.preventDefault(); // Prevent form submission
           errorMessage.style.display = "block"; // Show error message
           return;
         }
   
-        // Show loader and disable button on submit
         loader.style.display = "block"; // Show the loader
-        submitButton.disabled = true; // Disable the submit button to prevent further clicks
-        submitButton.classList.add("inactive"); // Apply inactive class to the button
+        submitButton.disabled = true; // Disable the submit button
+        submitButton.classList.add("inactive");
+  
+        try {
+          // Collect form data
+          const formData = new FormData(form);
+  
+          // Send the POST request to the server
+          const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+          });
+  
+          const result = await response.json();
+  
+          if (response.ok && result.success) {
+            window.location.href = "/confirmationScreen"; 
+          } else {
+            // Handle server-side validation errors
+            console.error(result.errors || result.message);
+            alert(result.message || "Validation failed. Please check your inputs.");
+          }
+        } catch (error) {
+          console.error("Error during form submission:", error);
+          alert("Something went wrong. Please try again later.");
+        } finally {
+          loader.style.display = "none"; // Hide the loader
+          submitButton.disabled = false; // Re-enable the submit button
+          submitButton.classList.remove("inactive");
+        }
       });
     }
   </script>
+  
   
   </KycFlowLayout>
 

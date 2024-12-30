@@ -30,7 +30,7 @@ const schema = z.object({
   terms_agreed: z.boolean(),
 });
 
-export const POST: APIRoute = async ({ request, redirect }) => {
+export const POST: APIRoute = async () => {
   const rawData = {
     type: currentUser.data.type,
     pan_card_number: currentUser.data.pan_card_number,
@@ -69,7 +69,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
         headers: { "Content-Type": "application/json" },
       }
     );
-    // return redirect("/confirmationScreen");
   } catch (error) {
     console.error("Error:", error);
     if (error instanceof z.ZodError) {

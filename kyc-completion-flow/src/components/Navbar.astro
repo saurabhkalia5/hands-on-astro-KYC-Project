@@ -18,7 +18,7 @@ const isRoot = Astro.request.url.endsWith("/");
   <div class="back-button">
     {
       !isRoot && (
-        <a href="#" id="back-btn">
+        <a href="/" id="back-btn">
           <Icon name="back-btn" class="icon" />
           <h1>Back</h1>
         </a>
@@ -29,16 +29,21 @@ const isRoot = Astro.request.url.endsWith("/");
   <!-- Brand Logo -->
   <div class="brand-logo">
     <a href="https://zfunds.in/">
-      <Image src={brandlogo} alt={"Z Funds Brand Logo"} />
+      <title>Sahi. Asaan</title>
+      <Image loading={"eager"} src={brandlogo} alt={"Z Funds Brand Logo"} />
     </a>
   </div>
 
   <!-- Search and Cart -->
   <div class="search-shop-bar">
-    <a href="https://zfunds.in/advisor">
+    <a href="https://zfunds.in/advisor"  title="search icon">
+      <title>Mutual Funds</title>
+
       <Icon name="search-btn" class="icon" />
     </a>
-    <a href="https://zfunds.in/homedetail">
+    <a href="https://zfunds.in/homedetail"  title="cart icon">
+      <title>Orders</title>
+
       <Icon name="shopping-cart-one" class="icon" />
     </a>
   </div>

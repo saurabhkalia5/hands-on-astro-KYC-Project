@@ -15,7 +15,9 @@ const KYCForm = () => {
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
-    setErrorMessage(event.target.checked ? "" : "Please agree to the terms to proceed.");
+    setErrorMessage(
+      event.target.checked ? "" : "Please agree to the terms to proceed."
+    );
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -27,20 +29,18 @@ const KYCForm = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/users",  {
+      console.log(JSON.stringify(currentUser));
+      const response = await fetch("/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(currentUser),
       });
-      const result = await response.json();
-
-      if (result.success) {
-        window.location.href = "/confirmationScreen";
+      if (response.redirected) {
+        window.location.assign(response.url);
       } else {
-        console.error(result.errors || result.message);
-        setErrorMessage(result.message || "Validation failed. Please check your inputs.");
+        setErrorMessage("Something went wrong. Please try again later.");
       }
     } catch (error) {
       console.error("Error during form submission:", error);
@@ -52,7 +52,7 @@ const KYCForm = () => {
 
   return (
     <div>
-      <form className="container" id="kyc-form" onSubmit={handleSubmit}>
+      {/* <form className="container" id="kyc-form"> */}
       <HeadingTile title={"Confirm Details"}></HeadingTile>
       {/* User Details Section */}
       <div className="form-details">
@@ -61,7 +61,7 @@ const KYCForm = () => {
             User Details{" "}
             <span className="edit">
               <a href="/personalDetails">
-                <i className="fa fa-pencil fa-sm" ></i> Edit
+                <i className="fa fa-pencil fa-sm"></i> Edit
               </a>
             </span>
           </div>
@@ -117,7 +117,9 @@ const KYCForm = () => {
           <div className="card-header">
             KYC Details{" "}
             <span className="edit">
-              <a href="/personalDetails"><i className="fa fa-pencil fa-sm"></i> Edit</a>
+              <a href="/personalDetails">
+                <i className="fa fa-pencil fa-sm"></i> Edit
+              </a>
             </span>
           </div>
           <div className="card-content">
@@ -154,7 +156,9 @@ const KYCForm = () => {
           <div className="card-header">
             Documents{" "}
             <span className="edit">
-              <a href="/uploadDocuments"><i className="fa fa-pencil fa-sm"></i> Edit</a>
+              <a href="/uploadDocuments">
+                <i className="fa fa-pencil fa-sm"></i> Edit
+              </a>
             </span>
           </div>
           <div className="documents">
@@ -183,46 +187,46 @@ const KYCForm = () => {
         </div>
       </div>
 
-        <div className="terms">
-          <label>
-            <input
-              style={{ accentColor: "#03A87D" }}
-              type="checkbox"
-              id="terms-checkbox"
-              aria-label="Agree to terms and conditions"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            />
-            I agree to the{" "}
-            <a
-              href="https://zfunds.in/privacy-policy"
-              target="_blank"
-              style={{ textDecoration: "none" }}
-            >
-              Terms & Conditions
-            </a>
-          </label>
-        </div>
-
-        {errorMessage && (
-          <div className="error-message" id="error-message">
-            <p style={{ color: "red", fontSize: "14px" }}>{errorMessage}</p>
-          </div>
-        )}
-
-        <div className="buttons">
-          <button
-            type="submit"
-            className={`submit-btn ${!isChecked ? "inactive" : ""}`}
-            id="submit-btn"
-            aria-label="Proceed to the next step"
-            disabled={!isChecked || isLoading}
+      <div className="terms">
+        <label>
+          <input
+            style={{ accentColor: "#03A87D" }}
+            type="checkbox"
+            id="terms-checkbox"
+            aria-label="Agree to terms and conditions"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          I agree to the{" "}
+          <a
+            href="https://zfunds.in/privacy-policy"
+            target="_blank"
+            style={{ textDecoration: "none" }}
           >
-            {isLoading ? "Submitting..." : "SUBMIT"}
-          </button>
-          {isLoading && <div id="loader" className="loader"></div>}
+            Terms & Conditions
+          </a>
+        </label>
+      </div>
+
+      {errorMessage && (
+        <div className="error-message" id="error-message">
+          <p style={{ color: "red", fontSize: "14px" }}>{errorMessage}</p>
         </div>
-      </form>
+      )}
+
+      <div className="buttons">
+        <button
+          onClick={handleSubmit}
+          className={`submit-btn ${!isChecked ? "inactive" : ""}`}
+          id="submit-btn"
+          aria-label="Proceed to the next step"
+          disabled={!isChecked || isLoading}
+        >
+          {isLoading ? "Submitting..." : "SUBMIT"}
+        </button>
+        {isLoading && <div id="loader" className="loader"></div>}
+      </div>
+      {/* </form> */}
     </div>
   );
 };

@@ -7,7 +7,7 @@ export interface UserDocuments {
   export interface UserType {
     pan_card_number: string;
     name: string;
-    age: number | null;
+    age: number;
     gender: string;
     date_of_birth: string;
     address: string;

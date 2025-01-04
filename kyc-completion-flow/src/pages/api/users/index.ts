@@ -3,13 +3,13 @@ import { app } from "../../../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
 import { z } from "zod";
 
-
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
   const rawData = await request.json();
 
   const schema = z.object({
     pan_card_number: z.string(),
     name: z.string(),
+    age: z.number(),
     gender: z.enum(["Male", "Female", "Other"]),
     date_of_birth: z.string(),
     address: z.string(),
@@ -31,14 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const db = getFirestore(app);
     await db.collection("users").add(data);
-
-    return new Response(
-      JSON.stringify({ success: true }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return redirect("/confirmationScreen");
   } catch (error) {
     console.error("Error:", error);
     if (error instanceof z.ZodError) {
@@ -59,3 +52,4 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 };
+

@@ -31,7 +31,7 @@ import type { UserType } from "./types";
 const initialUserState: UserType = {
   pan_card_number: "Indian Citizen",
   name: "Tanvi Jadhav",
-  age: null,
+  age: 0,
   gender: "Male",
   date_of_birth: "DD/MM/YYYY",
   address: "250 Flat No, second floor, sector 57, shushant lok Phase 2",

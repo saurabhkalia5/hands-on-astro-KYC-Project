@@ -117,6 +117,7 @@ export default function PersonalDetailsForm() {
             onChange={(e) => handleValueChange('email', e.target.value)} 
             placeholder="@gmail.com" 
           />
+          {/* @TODO : CAN IMPLEMENT EMAIL VALIDATION AND DISABLE FIELD */}
            <div style={{color: "gray", fontSize: "0.9rem", marginTop:"10px", marginBottom:"20px"}}>
             You will receive portfolio statements on this email id
           </div>

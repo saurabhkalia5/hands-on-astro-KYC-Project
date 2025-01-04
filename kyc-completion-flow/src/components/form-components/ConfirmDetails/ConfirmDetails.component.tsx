@@ -19,8 +19,6 @@ const KYCForm = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
     if (!isChecked) {
       setErrorMessage("Please agree to the terms to proceed.");
       return;
@@ -29,13 +27,16 @@ const KYCForm = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/users", {
+      const response = await fetch("/api/users",  {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(currentUser),
       });
-
       const result = await response.json();
 
-      if (response.ok && result.success) {
+      if (result.success) {
         window.location.href = "/confirmationScreen";
       } else {
         console.error(result.errors || result.message);

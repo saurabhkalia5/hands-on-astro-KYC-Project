@@ -39,7 +39,11 @@ const KYCForm = () => {
       });
       if (response.redirected) {
         window.location.assign(response.url);
+      } else if(response.status===400){
+        console.log(response)
+        setErrorMessage("Invalid Field Values");
       } else {
+        console.log(response)
         setErrorMessage("Something went wrong. Please try again later.");
       }
     } catch (error) {

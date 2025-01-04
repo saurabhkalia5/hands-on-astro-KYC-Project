@@ -35,14 +35,18 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   } catch (error) {
     console.error("Error:", error);
     if (error instanceof z.ZodError) {
+      console.log("----> ", error);
+        
       return new Response(
-        JSON.stringify({ success: false, errors: error.errors }),
+        JSON.stringify({ success: false, errors: error.message }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
+          
         }
       );
     }
+    
     return new Response(
       JSON.stringify({ success: false, message: "Something went wrong" }),
       {

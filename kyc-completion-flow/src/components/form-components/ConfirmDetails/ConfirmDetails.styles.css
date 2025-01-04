@@ -104,3 +104,65 @@
   object-fit: contain; /* Ensures image scales correctly without distortion */
 }
 
+
+.container {
+  height: 100%;
+  max-width: 600px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+.terms {
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.terms input[type="checkbox"]:checked {
+  background-color: #004680; /* Background color when checked */
+  border-color: #004680; /* Border color when checked */
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-btn {
+  background: #003366;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 90vw;
+  height: 54px;
+  transition: background 0.3s ease;
+}
+
+.submit-btn.inactive {
+  background: #a3c4e5; /* Lighter blue when inactive */
+  cursor: not-allowed; /* Indicate that the button is not clickable */
+}
+
+/* Loader styles */
+.loader {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #003366; /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -14,8 +14,6 @@ import netlify from '@astrojs/netlify';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), icon()],
-  output: 'server',
-  adapter: netlify({
-    edgeMiddleware: true
-  }),
+  output: 'server', // default ssr type setting :- build all at once     //change to hybrid for ssg
+  adapter: netlify(),
 });

@@ -4,11 +4,54 @@ import { userStore } from "../../../userStore";
 import "font-awesome/css/font-awesome.min.css";
 import HeadingTile from "../../HeadingTile/headingTile.component";
 
-const UserProfile: React.FC = () => {
+import React, { useState } from "react";
+
+const KYCForm = () => {
   const currentUser = useStore(userStore);
+
+  const [isChecked, setIsChecked] = useState(false); // Manage checkbox state
+  const [isLoading, setIsLoading] = useState(false); // Manage loader state
+  const [errorMessage, setErrorMessage] = useState(""); // Manage error message
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
+    setErrorMessage(event.target.checked ? "" : "Please agree to the terms to proceed.");
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!isChecked) {
+      setErrorMessage("Please agree to the terms to proceed.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        window.location.href = "/confirmationScreen";
+      } else {
+        console.error(result.errors || result.message);
+        setErrorMessage(result.message || "Validation failed. Please check your inputs.");
+      }
+    } catch (error) {
+      console.error("Error during form submission:", error);
+      setErrorMessage("Something went wrong. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div>
+      <form className="container" id="kyc-form" onSubmit={handleSubmit}>
       <HeadingTile title={"Confirm Details"}></HeadingTile>
       {/* User Details Section */}
       <div className="form-details">
@@ -138,8 +181,49 @@ const UserProfile: React.FC = () => {
           </div>
         </div>
       </div>
+
+        <div className="terms">
+          <label>
+            <input
+              style={{ accentColor: "#03A87D" }}
+              type="checkbox"
+              id="terms-checkbox"
+              aria-label="Agree to terms and conditions"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            I agree to the{" "}
+            <a
+              href="https://zfunds.in/privacy-policy"
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
+              Terms & Conditions
+            </a>
+          </label>
+        </div>
+
+        {errorMessage && (
+          <div className="error-message" id="error-message">
+            <p style={{ color: "red", fontSize: "14px" }}>{errorMessage}</p>
+          </div>
+        )}
+
+        <div className="buttons">
+          <button
+            type="submit"
+            className={`submit-btn ${!isChecked ? "inactive" : ""}`}
+            id="submit-btn"
+            aria-label="Proceed to the next step"
+            disabled={!isChecked || isLoading}
+          >
+            {isLoading ? "Submitting..." : "SUBMIT"}
+          </button>
+          {isLoading && <div id="loader" className="loader"></div>}
+        </div>
+      </form>
     </div>
   );
 };
 
-export default UserProfile;
+export default KYCForm;

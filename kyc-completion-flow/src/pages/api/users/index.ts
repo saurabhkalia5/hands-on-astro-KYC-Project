@@ -3,11 +3,12 @@ import { app } from "../../../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 import { z } from "zod";
-import { getCollection } from "astro:content";
+import { useStore } from "@nanostores/react";
+import { userStore } from "../../../userStore";
 
-// Fetch user fields from the Astro collection
-const userCollection = await getCollection("user"); // this fetches the user data collection
-const currentUser = userCollection[0]; // Get the first user in the collection
+// Fetch user fields from the Astro Store
+const currentUser = useStore(userStore);
+
 
 const schema = z.object({
   type: z.literal("user"),
@@ -32,24 +33,22 @@ const schema = z.object({
 
 export const POST: APIRoute = async () => {
   const rawData = {
-    type: currentUser.data.type,
-    pan_card_number: currentUser.data.pan_card_number,
-    name: currentUser.data.name,
-    gender: currentUser.data.gender,
-    date_of_birth: currentUser.data.date_of_birth,
-    address: currentUser.data.address,
-    pincode: currentUser.data.pincode,
-    email: currentUser.data.email,
-    marital_status: currentUser.data.marital_status,
-    annual_income: currentUser.data.annual_income,
-    father_name: currentUser.data.father_name,
-    mother_name: currentUser.data.mother_name,
+    pan_card_number: currentUser.pan_card_number,
+    name: currentUser.name,
+    gender: currentUser.gender,
+    date_of_birth: currentUser.date_of_birth,
+    address: currentUser.address,
+    pincode: currentUser.pincode,
+    email: currentUser.email,
+    marital_status: currentUser.marital_status,
+    annual_income: currentUser.annual_income,
+    father_name: currentUser.father_name,
+    mother_name: currentUser.mother_name,
     documents: {
-      photo: currentUser.data.documents?.photo,
-      pan_card: currentUser.data.documents?.pan_card,
-      signature: currentUser.data.documents?.signature,
+      photo: currentUser.documents?.photo,
+      pan_card: currentUser.documents?.pan_card,
+      signature: currentUser.documents?.signature,
     },
-    terms_agreed: currentUser.data.terms_agreed,
   };
 
   try {

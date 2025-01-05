@@ -21,6 +21,7 @@ const KYCForm = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
+    if(event.isTrusted){
     if (!isChecked) {
       setErrorMessage("Please agree to the terms to proceed.");
       return;
@@ -52,6 +53,7 @@ const KYCForm = () => {
     } finally {
       setIsLoading(false);
     }
+  }
   };
 
   return (

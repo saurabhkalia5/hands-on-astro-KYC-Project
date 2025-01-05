@@ -1,6 +1,7 @@
 import { atom } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 import type { UserType } from "./types";
+import CryptoJS from "crypto-js";
 
 /**
  * @typedef {Object} UserDocuments
@@ -48,12 +49,38 @@ const initialUserState: UserType = {
   },
 };
 
+const ENCRYPTION_KEY = "kjdsjkasdjksdkjjkdsakjkjadkjjkadkj";
+
 export const userStore = persistentAtom<UserType>(
   "userStore",
   initialUserState,
   {
-    encode: JSON.stringify,
-    decode: JSON.parse,
+    encode: (data: UserType) => {
+      try {
+        const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), ENCRYPTION_KEY).toString();
+        return encrypted;
+      } catch (error) {
+        console.error("Failed to encrypt data:", error);
+        return ""; 
+      }
+    },    
+    decode: (data: string) => {
+      try {
+        if (!data || typeof data !== "string" || !/^[A-Za-z0-9+/=]+$/.test(data)) {
+          console.warn("Invalid encrypted data format.");
+          return initialUserState;
+        }
+    
+        const bytes = CryptoJS.AES.decrypt(data, ENCRYPTION_KEY);
+        const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+    
+        return JSON.parse(decrypted) as UserType;
+      } catch (error) {
+        console.error("Failed to decrypt userStore data:", error);
+        return initialUserState; 
+      }
+    }
+    
   }
 );
 

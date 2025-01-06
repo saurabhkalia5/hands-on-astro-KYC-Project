@@ -97,7 +97,7 @@ const FatcaVerificationForm: React.FC = () => {
         </div>
 
         {/* Buttons */}
-        <SubmitButton nextRoute="/confirmDetails" isDisabled={isDisabled}/>
+        <SubmitButton nextRoute="/confirmDetails" isDisabled={isDisabled} validate={()=>true}/>
       </div>
     </>
   );

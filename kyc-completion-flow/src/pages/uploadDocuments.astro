@@ -1,8 +1,11 @@
 ---
 import UploadDocumentsForm from "../components/form-components/UploadDocuments/UploadDocuments.component"
 import KycFlowLayout from "../layouts/KycFlowLayout.astro"
+const param = Astro.url.searchParams.get('edit');
+
+
 ---
 
 <KycFlowLayout title="Documents" description="These documents are required to complete your KYC verification.">
-<UploadDocumentsForm client:visible/>
+<UploadDocumentsForm isEditable={param==="true"} client:visible />
 </KycFlowLayout>

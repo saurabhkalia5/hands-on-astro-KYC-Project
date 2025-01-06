@@ -66,7 +66,7 @@ const KYCForm = () => {
           <div className="card-header">
             User Details{" "}
             <span className="edit">
-              <a href="/personalDetails">
+              <a href="/personalDetails?edit=true">
                 <i className="fa fa-pencil fa-sm"></i> Edit
               </a>
             </span>
@@ -123,7 +123,7 @@ const KYCForm = () => {
           <div className="card-header">
             KYC Details{" "}
             <span className="edit">
-              <a href="/personalDetails">
+              <a href="/personalDetails?edit=true">
                 <i className="fa fa-pencil fa-sm"></i> Edit
               </a>
             </span>
@@ -162,7 +162,7 @@ const KYCForm = () => {
           <div className="card-header">
             Documents{" "}
             <span className="edit">
-              <a href="/uploadDocuments">
+              <a href="/uploadDocuments?edit=true">
                 <i className="fa fa-pencil fa-sm"></i> Edit
               </a>
             </span>

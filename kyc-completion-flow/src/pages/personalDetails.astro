@@ -1,8 +1,12 @@
 ---
 import KycFlowLayout from "../layouts/KycFlowLayout.astro"
 import PersonalDetailsForm from "../components/form-components/PersonalDetails/PersonalDetails.component.tsx"
+const param = Astro.url.searchParams.get('edit');
+
 ---
 
+
+
 <KycFlowLayout title="Personal Details" description=" These details are required to complete your KYC verification.">
-<PersonalDetailsForm client:visible/>
+<PersonalDetailsForm isEditable={param==="true"} client:visible/>
 </KycFlowLayout>

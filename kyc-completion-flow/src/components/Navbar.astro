@@ -9,6 +9,7 @@ const isRoot = Astro.request.url.endsWith("/");
 <script>
   document.getElementById("back-btn")?.addEventListener("click", (event) => {
     event.preventDefault(); // Prevents default anchor behavior
+  
     window.history.back(); // Goes back one page in history
   });
 </script>

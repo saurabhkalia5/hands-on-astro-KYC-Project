@@ -18,10 +18,12 @@
   max-width: 40%;
 }
 
-.error-message {
-  color: red;
-}
 
+.error-message{
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 h3 {
   font-size: 18px;
   margin: 0;

@@ -24,6 +24,11 @@
   font-size: 12px;
   margin-top: 5px;
 }
+
+.general{
+  display: flex;
+  justify-content: center;
+}
 h3 {
   font-size: 18px;
   margin: 0;

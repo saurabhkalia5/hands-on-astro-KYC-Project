@@ -35,3 +35,9 @@
     font-size: 12px;
     margin-top: 5px;
   }
+
+  .next-button.inactive {
+    background: #a3c4e5; /* Lighter blue when inactive */
+    cursor: not-allowed; /* Indicate that the button is not clickable */
+  }
+  

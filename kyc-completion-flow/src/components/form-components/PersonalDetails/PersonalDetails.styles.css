@@ -43,27 +43,6 @@ h2 {
   color: #052f5f !important; /* Hint text color */
 }
 
-.radio-group {
-  display: flex;
-  align-items: center;
-
-}
-
-.radio-group label {
-  display: flex;
-  align-items: center; /* Align the text and radio input on the same line */
-  margin: 0;
-}
-
-
-.radio-group label:nth-of-type(2) {
-  margin-left: 80px;
-}
-
-.radio-group input {
-  margin-right: 5px;
-}
-
 .text-input {
   width: 100%;
   padding: 10px;
@@ -97,22 +76,3 @@ h2 {
   color: #fff;
 }
 
-.income-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.income-options label {
-  display: flex;
-  align-items: center;
-}
-
-input[type="radio"]:checked {
-  accent-color: #052f5f; /* Changes the background to blue */
-}
-
-input[type="radio"]{
-  height: 16px;
-  width: 16px;
-}

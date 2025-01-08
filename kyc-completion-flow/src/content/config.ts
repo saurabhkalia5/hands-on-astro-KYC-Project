@@ -1,6 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import {  defineCollection, z } from 'astro:content';
 
-//NOT BEING USED THERE ARE MADE TO LEARN MORE ABOUT COLLECTIONS AND MD along with Zod
+// //NOT BEING USED THERE ARE MADE TO LEARN MORE ABOUT COLLECTIONS AND MD along with Zod
 
 const userCollection = defineCollection({
   schema: z.object({
@@ -28,3 +28,4 @@ const userCollection = defineCollection({
 export const collections = {
   user: userCollection,
 };
+

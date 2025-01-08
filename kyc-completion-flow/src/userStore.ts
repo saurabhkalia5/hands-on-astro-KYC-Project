@@ -2,6 +2,7 @@ import { atom } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 import type { UserType } from "./types";
 import CryptoJS from "crypto-js";
+import { FILE_UPLOAD_DEFAULT_VALUES } from "./utils/fileUpload.service";
 
 /**
  * @typedef {Object} UserDocuments
@@ -43,9 +44,9 @@ const initialUserState: UserType = {
   father_name: "",
   mother_name: "",
   documents: {
-    photo: "https://static.vecteezy.com/system/resources/previews/007/296/447/non_2x/user-icon-in-flat-style-person-icon-client-symbol-vector.jpg",
-    pan_card: "https://i.etsystatic.com/36262552/r/il/e99d3d/4200185857/il_570xN.4200185857_4q6q.jpg",
-    signature: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa8dfNitSE3DimQsl9LmGzBvSORvE0Cj17Vg&s",
+    photo: FILE_UPLOAD_DEFAULT_VALUES.photo,
+    pan_card: FILE_UPLOAD_DEFAULT_VALUES.panCard ,
+    signature: FILE_UPLOAD_DEFAULT_VALUES.signature,
   },
 };
 

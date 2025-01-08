@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import {
   documentsConfig,
   kycDetailsConfig,
+  personalDetailsConfig,
   userDetailsConfig,
 } from "../../../configurations";
 import type { UserType } from "../../../types";
@@ -17,8 +18,8 @@ const KYCForm = () => {
   const currentUser = useStore(userStore);
 
   const [isChecked, setIsChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); 
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -33,17 +34,17 @@ const KYCForm = () => {
         setErrorMessage("Please agree to the terms to proceed.");
         return;
       }
-  
+
       setIsLoading(true);
-  
+
       const { success, message } = await postUserData(currentUser);
-  
+
       if (success) {
         console.log("User data submitted successfully");
       } else {
         setErrorMessage(message as string);
       }
-  
+
       setIsLoading(false);
     }
   };
@@ -83,7 +84,7 @@ const KYCForm = () => {
             <div className="content-box">
               <div className="card-header">Personal Details</div>
               <div className="card-content">
-                {userDetailsConfig.map(({ label, key }) => (
+                {personalDetailsConfig.map(({ label, key }) => (
                   <p key={key}>
                     <span className="key">{label}:</span>
                     <br />
@@ -101,7 +102,7 @@ const KYCForm = () => {
           </div>
 
           {/* KYC Details Section */}
-          <div className="card">
+          {/* <div className="card">
             <div className="card-header">
               KYC Details{" "}
               <span className="edit">
@@ -120,6 +121,34 @@ const KYCForm = () => {
                   </span>
                 </p>
               ))}
+            </div>
+          </div> */}
+
+          <div className="card">
+            <div className="card-header">
+              KYC Details{" "}
+              <span className="edit">
+                <a href="/personalDetails?edit=true">
+                  <i className="fa fa-pencil fa-sm"></i> Edit
+                </a>
+              </span>
+            </div>
+            <div className="card-content">
+          
+              <div className="grid-section">
+                {kycDetailsConfig
+                  .map(({ label, key }) => (
+                    <div className="grid-item" key={key}>
+                      <p>
+                        <span className="key">{label}:</span>
+                        <br />
+                        <span className="value">
+                          {currentUser[key as keyof UserType] as string}
+                        </span>
+                      </p>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
 

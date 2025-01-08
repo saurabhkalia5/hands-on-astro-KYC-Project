@@ -61,4 +61,3 @@ export const userSchema = z.object({
     invalid_type_error: "Signature is Mandatory",
   }),
 });
-

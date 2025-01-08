@@ -1,5 +1,3 @@
-import type { UserType } from "./types";
-
 export const maritalStatusOptions = [
     { label: "Single", value: "Single" },
     { label: "Married", value: "Married" },
@@ -45,6 +43,9 @@ export const maritalStatusOptions = [
       label: "Name",
       key: "name",
     },
+  ];
+
+  export const personalDetailsConfig = [
     {
       label: "Gender",
       key: "gender",

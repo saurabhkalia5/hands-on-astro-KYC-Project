@@ -5,13 +5,20 @@ import "font-awesome/css/font-awesome.min.css";
 import HeadingTile from "../../HeadingTile/headingTile.component";
 
 import React, { useState } from "react";
+import {
+  documentsConfig,
+  kycDetailsConfig,
+  userDetailsConfig,
+} from "../../../configurations";
+import type { UserType } from "../../../types";
+import { postUserData } from "../../../utils/userSubmit.service";
 
 const KYCForm = () => {
   const currentUser = useStore(userStore);
 
-  const [isChecked, setIsChecked] = useState(false); // Manage checkbox state
-  const [isLoading, setIsLoading] = useState(false); // Manage loader state
-  const [errorMessage, setErrorMessage] = useState(""); // Manage error message
+  const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); 
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -21,39 +28,24 @@ const KYCForm = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
-    if(event.isTrusted){
-    if (!isChecked) {
-      setErrorMessage("Please agree to the terms to proceed.");
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      console.log(JSON.stringify(currentUser));
-      const response = await fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(currentUser),
-      });
-      if (response.redirected) {
-        window.location.assign(response.url);
-      } else if(response.status===400){
-        console.log(response)
-        setErrorMessage("Invalid Field Values");
-      } else {
-        console.log(response)
-        setErrorMessage("Something went wrong. Please try again later.");
+    if (event.isTrusted) {
+      if (!isChecked) {
+        setErrorMessage("Please agree to the terms to proceed.");
+        return;
       }
-    } catch (error) {
-      console.error("Error during form submission:", error);
-      setErrorMessage("Something went wrong. Please try again later.");
-    } finally {
+  
+      setIsLoading(true);
+  
+      const { success, message } = await postUserData(currentUser);
+  
+      if (success) {
+        console.log("User data submitted successfully");
+      } else {
+        setErrorMessage(message as string);
+      }
+  
       setIsLoading(false);
     }
-  }
   };
 
   return (
@@ -62,132 +54,97 @@ const KYCForm = () => {
       <HeadingTile title={"Confirm Details"}></HeadingTile>
       {/* User Details Section */}
       <div className="form-details">
-        <div className="card">
-          <div className="card-header">
-            User Details{" "}
-            <span className="edit">
-              <a href="/personalDetails?edit=true">
-                <i className="fa fa-pencil fa-sm"></i> Edit
-              </a>
-            </span>
-          </div>
-          <div className="card-content">
-            <p>
-              <span className="key">PAN Card Number:</span>
-              <br />
-              <span className="value">{currentUser.pan_card_number}</span>
-            </p>
-            <p>
-              <span className="key">Name:</span>
-              <br />
-              <span className="value">{currentUser.name}</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Personal Details Section */}
-        <div className="card non-editable">
-          <div className="content-box">
-            <div className="card-header">Personal Details</div>
+        <div>
+          {/* User Details Section */}
+          <div className="card">
+            <div className="card-header">
+              User Details{" "}
+              <span className="edit">
+                <a href="/personalDetails?edit=true">
+                  <i className="fa fa-pencil fa-sm"></i> Edit
+                </a>
+              </span>
+            </div>
             <div className="card-content">
-              <p>
-                <span className="key">Gender:</span>
-                <br />
-                <span className="value">{currentUser.gender}</span>
-              </p>
-              <p>
-                <span className="key">Date of Birth:</span>
-                <br />
-                <span className="value">{currentUser.date_of_birth}</span>
-              </p>
-              <p>
-                <span className="key">Address:</span>
-                <br />
-                <span className="value">{currentUser.address}</span>
-              </p>
-              <p>
-                <span className="key">Pincode:</span>
-                <br />
-                <span className="value">{currentUser.pincode}</span>
-              </p>
+              {userDetailsConfig.map(({ label, key }) => (
+                <p key={key}>
+                  <span className="key">{label}:</span>
+                  <br />
+                  <span className="value">
+                    {currentUser[key as keyof UserType] as string}
+                  </span>
+                </p>
+              ))}
             </div>
           </div>
-          <div className="note">
-            <strong>Note</strong>: You cannot edit the above details as they are
-            already verified through Digilocker.
-          </div>
-        </div>
 
-        {/* KYC Details Section */}
-        <div className="card">
-          <div className="card-header">
-            KYC Details{" "}
-            <span className="edit">
-              <a href="/personalDetails?edit=true">
-                <i className="fa fa-pencil fa-sm"></i> Edit
-              </a>
-            </span>
+          {/* Personal Details Section */}
+          <div className="card non-editable">
+            <div className="content-box">
+              <div className="card-header">Personal Details</div>
+              <div className="card-content">
+                {userDetailsConfig.map(({ label, key }) => (
+                  <p key={key}>
+                    <span className="key">{label}:</span>
+                    <br />
+                    <span className="value">
+                      {currentUser[key as keyof UserType] as string}
+                    </span>
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div className="note">
+              <strong>Note</strong>: You cannot edit the above details as they
+              are already verified through Digilocker.
+            </div>
           </div>
-          <div className="card-content">
-            <p>
-              <span className="key">Email:</span>
-              <br />
-              <span className="value">{currentUser.email}</span>
-            </p>
-            <p>
-              <span className="key">Marital Status:</span>
-              <br />
-              <span className="value">{currentUser.marital_status}</span>
-            </p>
-            <p>
-              <span className="key">Annual Income:</span>
-              <br />
-              <span className="value">{currentUser.annual_income}</span>
-            </p>
-            <p>
-              <span className="key">Father's Name:</span>
-              <br />
-              <span className="value">{currentUser.father_name}</span>
-            </p>
-            <p>
-              <span className="key">Mother's Name:</span>
-              <br />
-              <span className="value">{currentUser.mother_name}</span>
-            </p>
-          </div>
-        </div>
 
-        {/* Documents Section */}
-        <div className="card">
-          <div className="card-header">
-            Documents{" "}
-            <span className="edit">
-              <a href="/uploadDocuments?edit=true">
-                <i className="fa fa-pencil fa-sm"></i> Edit
-              </a>
-            </span>
+          {/* KYC Details Section */}
+          <div className="card">
+            <div className="card-header">
+              KYC Details{" "}
+              <span className="edit">
+                <a href="/personalDetails?edit=true">
+                  <i className="fa fa-pencil fa-sm"></i> Edit
+                </a>
+              </span>
+            </div>
+            <div className="card-content">
+              {kycDetailsConfig.map(({ label, key }) => (
+                <p key={key}>
+                  <span className="key">{label}:</span>
+                  <br />
+                  <span className="value">
+                    {currentUser[key as keyof UserType] as string}
+                  </span>
+                </p>
+              ))}
+            </div>
           </div>
-          <div className="documents">
-            <div className="document-placeholder">
-              <img
-                src={currentUser.documents.photo}
-                alt="Photo"
-                className="document-image"
-              />
+
+          {/* Documents Section */}
+          <div className="card">
+            <div className="card-header">
+              Documents{" "}
+              <span className="edit">
+                <a href="/uploadDocuments?edit=true">
+                  <i className="fa fa-pencil fa-sm"></i> Edit
+                </a>
+              </span>
             </div>
-            <div className="document-placeholder">
-              <img
-                src={currentUser.documents.pan_card}
-                alt="PAN Card"
-                className="document-image"
-              />
-            </div>
-            <div className="document-placeholder">
-              <img
-                src={currentUser.documents.signature}
-                alt="Signature"
-                className="document-image"
-              />
+            <div className="documents">
+              {documentsConfig.map(({ label, src }) => (
+                <div className="document-placeholder" key={src}>
+                  <img
+                    src={
+                      currentUser.documents[src as keyof UserType["documents"]]
+                    }
+                    alt={label}
+                    className="document-image"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

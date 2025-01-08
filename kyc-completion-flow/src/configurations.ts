@@ -1,3 +1,5 @@
+import type { UserType } from "./types";
+
 export const maritalStatusOptions = [
     { label: "Single", value: "Single" },
     { label: "Married", value: "Married" },
@@ -30,4 +32,71 @@ export const maritalStatusOptions = [
       label: "Not politically exposed",
       state: "isNotPoliticallyExposed",
     }
+  ];
+
+
+
+  export const userDetailsConfig = [
+    {
+      label: "PAN Card Number",
+      key: "pan_card_number",
+    },
+    {
+      label: "Name",
+      key: "name",
+    },
+    {
+      label: "Gender",
+      key: "gender",
+    },
+    {
+      label: "Date of Birth",
+      key: "date_of_birth",
+    },
+    {
+      label: "Address",
+      key: "address",
+    },
+    {
+      label: "Pincode",
+      key: "pincode",
+    },
+  ];
+  
+  export const kycDetailsConfig = [
+    {
+      label: "Email",
+      key: "email",
+    },
+    {
+      label: "Marital Status",
+      key: "marital_status",
+    },
+    {
+      label: "Annual Income",
+      key: "annual_income",
+    },
+    {
+      label: "Father's Name",
+      key: "father_name",
+    },
+    {
+      label: "Mother's Name",
+      key: "mother_name",
+    },
+  ];
+  
+  export const documentsConfig = [
+    {
+      label: "Photo",
+      src: "photo",
+    },
+    {
+      label: "PAN Card",
+      src: "pan_card",
+    },
+    {
+      label: "Signature",
+      src: "signature",
+    },
   ];

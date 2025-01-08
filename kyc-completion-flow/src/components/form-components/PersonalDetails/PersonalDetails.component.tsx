@@ -2,41 +2,37 @@ import React, { useEffect, useState } from "react";
 import "./PersonalDetails.styles.css";
 import { useStore } from "@nanostores/react";
 import { resetUserStore, updateUser, userStore } from "../../../userStore";
-import {
-
-  userSchema,
-  type UserType,
-} from "../../../types";
+import { userSchema, type UserType } from "../../../types";
 import HeadingTile from "../../HeadingTile/headingTile.component";
 import SubmitButton from "../../input-components/submitButtons/submitButtons";
 import { z } from "zod";
 import { validateForm } from "../../../utils/validateForm";
 import RadioCheckBox from "../../input-components/radioCheckbox/radioCheckbox.component";
 import InputField from "../../input-components/inputField/InputField.component";
-import { emailDomains, incomeStatusOptions, maritalStatusOptions } from "../../../configurations";
+import {
+  emailDomains,
+  incomeStatusOptions,
+  maritalStatusOptions,
+} from "../../../configurations";
 
 interface PersonalDetailsFormProps {
   isEditable?: boolean;
 }
 
+const initialFormState = {
+  email: "",
+  marital_status: "",
+  father_name: "",
+  mother_name: "",
+  annual_income: "",
+};
+
 export default function PersonalDetailsForm(props: PersonalDetailsFormProps) {
   const currentUser = useStore(userStore);
 
-  const [formState, setFormState] = useState({
-    email: "",
-    marital_status: "",
-    father_name: "",
-    mother_name: "",
-    annual_income: "",
-  });
+  const [formState, setFormState] = useState<Record<string, string>>(initialFormState);
 
-  const [errors, setErrors] = useState<Record<string, string>>({
-    email: "",
-    marital_status: "",
-    father_name: "",
-    mother_name: "",
-    annual_income: "",
-  });
+  const [errors, setErrors] = useState<Record<string, string>>(initialFormState);
 
   const handleValidation = () => {
     const validationResponse = validateForm({
@@ -63,7 +59,7 @@ export default function PersonalDetailsForm(props: PersonalDetailsFormProps) {
     setFormState((prevState) => ({ ...prevState, [key]: value }));
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [key]: "", 
+      [key]: "",
     }));
     updateUser(key, value);
   };
@@ -129,7 +125,7 @@ export default function PersonalDetailsForm(props: PersonalDetailsFormProps) {
             <div className="email-domains">
               {emailDomains.map((domain) => (
                 <button
-                key={domain}
+                  key={domain}
                   className={currentDomain === domain ? "active" : ""}
                   onClick={() => handleEmailDomainClick(domain)}
                 >
@@ -139,15 +135,15 @@ export default function PersonalDetailsForm(props: PersonalDetailsFormProps) {
             </div>
           </div>
         </div>
-          <RadioCheckBox
-            question="Annual Income"
-            name="annual_income"
-            options={incomeStatusOptions}
-            selectedValue={currentUser.annual_income}
-            onChange={handleValueChange}
-            errorMessage={errors.annual_income}
-            verticalDisplay={true}
-          />
+        <RadioCheckBox
+          question="Annual Income"
+          name="annual_income"
+          options={incomeStatusOptions}
+          selectedValue={currentUser.annual_income}
+          onChange={handleValueChange}
+          errorMessage={errors.annual_income}
+          verticalDisplay={true}
+        />
 
         <SubmitButton
           nextRoute={props.isEditable ? "/confirmDetails" : "/uploadDocuments"}
